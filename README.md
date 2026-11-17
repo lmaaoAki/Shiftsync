@@ -1,4 +1,3 @@
-[README.md](https://github.com/user-attachments/files/34958815/README.md)
 # ShiftSync
 
 ShiftSync is a duty/shift scheduling app made of three services:
