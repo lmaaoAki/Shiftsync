@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shiftsync-backend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shiftsync-backend
+  template:
+    metadata:
+      labels:
+        app: shiftsync-backend
+    spec:
+      containers:
+        - name: backend
+          image: shiftsync-backend:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          env:
+            - name: PORT
+              value: "3000"
+            - name: DB_FILE
+              value: "/app/data/shiftsync.sqlite"
+            - name: ML_SERVICE_URL
+              value: "http://shiftsync-ml-service:5000"
+            - name: APP_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: shiftsync-secrets
+                  key: APP_SECRET_KEY
+          volumeMounts:
+            - name: sqlite-storage
+              mountPath: /app/data
+      volumes:
+        - name: sqlite-storage
+          persistentVolumeClaim:
+            claimName: shiftsync-sqlite-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shiftsync-backend-service
+spec:
+  selector:
+    app: shiftsync-backend
+  ports:
+    - name: http
+      port: 3000
+      targetPort: 3000
