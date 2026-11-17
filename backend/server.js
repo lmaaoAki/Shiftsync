@@ -14,6 +14,7 @@ const SECRET_KEY = process.env.APP_SECRET_KEY || 'default_insecure_secret';
 
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
+app.use(express.static(path.join(__dirname, '../frontend')));
 
 let db;
 
