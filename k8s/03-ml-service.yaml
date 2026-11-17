@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shiftsync-ml-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shiftsync-ml
+  template:
+    metadata:
+      labels:
+        app: shiftsync-ml
+    spec:
+      containers:
+        - name: ml-service
+          image: shiftsync-ml:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
+          env:
+            - name: APP_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: shiftsync-secrets
+                  key: APP_SECRET_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shiftsync-ml-service
+spec:
+  selector:
+    app: shiftsync-ml
+  ports:
+    - port: 5000
+      targetPort: 5000
