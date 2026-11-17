@@ -2,38 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>ShiftSync — Isolated Multi-Organization Duty Roster System</title>
+  <title>ShiftSync</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <style>
-    :root{--bg:#f3f5f2;--card:#fff;--ink:#17261f;--mut:#5d6b64;--line:#d8dfda;--pri:#0f6b4f;--pri2:#e4f2ec;--bad:#b3261e;--bad2:#fbe9e7;--warn:#9a6700;--warn2:#fff4d6;--pref:#1d4ed8;--pref2:#dbeafe;--unpref:#b45309;--unpref2:#fef3c7;--busy:#2c3a33;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-    @media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#111a16;--card:#18241e;--ink:#e6efe9;--mut:#9fb0a6;--line:#2b3a32;--pri:#4fc79b;--pri2:#173a2d;--bad:#ff8a80;--bad2:#3a1d1a;--warn:#f0c04a;--warn2:#3a2f12;--pref:#60a5fa;--pref2:#1e3a8a;--unpref:#fbbf24;--unpref2:#451a03;--busy:#8fa398}}
-    :root[data-theme=dark]{--bg:#111a16;--card:#18241e;--ink:#e6efe9;--mut:#9fb0a6;--line:#2b3a32;--pri:#4fc79b;--pri2:#173a2d;--bad:#ff8a80;--bad2:#3a1d1a;--warn:#f0c04a;--warn2:#3a2f12;--pref:#60a5fa;--pref2:#1e3a8a;--unpref:#fbbf24;--unpref2:#451a03;--busy:#8fa398}
-    *{box-sizing:border-box}html,body{margin:0}body{background:var(--bg);color:var(--ink);font:15px/1.5 "Segoe UI",system-ui,sans-serif}
-    h1,h2,h3{font-family:Georgia,"Times New Roman",serif;margin:0 0 .4em}h1{font-size:1.65rem}h2{font-size:1.18rem;margin-top:1.2em}
-    .app{display:flex;min-height:100vh}nav{width:235px;background:var(--card);border-right:1px solid var(--line);padding:16px 10px;flex-shrink:0}
-    nav .logo{font:700 1.35rem Georgia,serif;color:var(--pri);padding:0 8px 4px}
-    nav .org-badge{font-size:12px;color:var(--pri);background:var(--pri2);padding:4px 8px;border-radius:6px;margin:0 6px 10px;font-weight:600}
-    nav .sec-lbl{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);padding:10px 10px 4px;font-weight:700}
-    nav button{display:block;width:100%;text-align:left;background:none;border:0;color:var(--ink);padding:8px 10px;border-radius:6px;font:inherit;font-size:14px;cursor:pointer}
-    nav button.on{background:var(--pri2);color:var(--pri);font-weight:600}nav .who{padding:10px 8px;color:var(--mut);font-size:13px;border-top:1px solid var(--line);margin-top:12px}
-    main{flex:1;padding:22px;min-width:0;max-width:1100px}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px;margin:10px 0}
-    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px}.stats .card{margin:0}.stats b{display:block;font-size:1.45rem;font-family:Georgia,serif}
-    .btn{background:var(--pri);color:#fff;border:0;border-radius:6px;padding:7px 13px;font:inherit;font-size:14px;cursor:pointer}[data-theme=dark] .btn{color:#06241a}.btn.sec{background:none;color:var(--pri);border:1px solid var(--pri)}.btn.bad{background:var(--bad);color:#fff}.btn.warn{background:var(--warn);color:#fff}.btn.sm{padding:4px 9px;font-size:12.5px}
-    .btn:focus-visible,nav button:focus-visible,td:focus-visible{outline:2px solid var(--pri);outline-offset:2px}
-    table{border-collapse:collapse;width:100%}th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;font-size:13px}th{background:var(--pri2)}
-    .scroll{overflow-x:auto}.grid td{width:12%;text-align:center;height:18px;padding:0 2px;overflow:hidden;white-space:nowrap;cursor:pointer;user-select:none}.grid th{padding:2px 6px;font-size:11px}
-    .grid td.f{background:var(--pri2)}
-    .grid td.p{background:var(--pref2);color:var(--pref);font-weight:700;font-size:10px}
-    .grid td.u{background:var(--unpref2);color:var(--unpref);font-weight:700;font-size:10px}
-    .grid td.b{background:var(--busy)}
-    .chip{display:inline-block;padding:2px 8px;border-radius:12px;background:var(--pri2);color:var(--pri);margin:2px;font-size:12px}.chip.bad{background:var(--bad2);color:var(--bad)}.chip.warn{background:var(--warn2);color:var(--warn)}.chip.pref{background:var(--pref2);color:var(--pref)}.chip.unpref{background:var(--unpref2);color:var(--unpref)}
-    .bar{height:10px;background:var(--line);border-radius:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--pri)}
-    input,select{font:inherit;font-size:14px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:6px}
-    .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.mut{color:var(--mut);font-size:13px}.note{padding:10px;border-radius:6px;background:var(--warn2);color:var(--warn);margin:8px 0}
-    .login{max-width:460px;margin:8vh auto;padding:20px}.login .btn{width:100%;margin:6px 0}
-    @media(max-width:750px){.app{flex-direction:column}nav{width:100%;display:flex;flex-wrap:wrap;gap:4px;border-right:0;border-bottom:1px solid var(--line)}nav button{width:auto}nav .logo,nav .who,nav .sec-lbl,nav .org-badge{width:100%}main{padding:14px}}
-  </style>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <div id="root">Loading ShiftSync...</div>
@@ -65,6 +37,13 @@ const fmtHM = decHrs => {
 };
 
 let S = {};
+let ENTER = false, LASTMSG = '', MSGNEW = false;
+const getTheme = () => { try { return localStorage.getItem('ss-theme') || 'auto'; } catch (e) { return 'auto'; } };
+const applyTheme = () => { const t = getTheme(); if (t === 'auto') document.documentElement.removeAttribute('data-theme'); else document.documentElement.dataset.theme = t; };
+function setTheme(t) { try { localStorage.setItem('ss-theme', t); } catch (e) { } applyTheme(); render(); }
+const themeSeg = () => `<div class="seg" title="Auto follows your device theme">${[['auto', 'Auto'], ['light', 'Light'], ['dark', 'Dark']].map(([k, t]) => `<button class="${getTheme() === k ? 'on' : ''}" onclick="setTheme('${k}')">${t}</button>`).join('')}</div>`;
+applyTheme();
+const canAssign = () => S.role === 'admin';
 let saveQueue = Promise.resolve();
 
 async function syncSave() {
@@ -300,7 +279,7 @@ async function gen() {
   } catch (e) {
     const r = solve(slots());
     S.un = S.un.concat(r.un);
-    S.msg = `Roster generated for ${activeOrg().name} in ${r.ms.toFixed(1)} ms. Unfilled slots: ${r.un.length}.`;
+    S.enter = true; S.msg = `Roster generated for ${activeOrg().name} in ${r.ms.toFixed(1)} ms. Unfilled slots: ${r.un.length}.`;
   }
   archiveRoster();
   render();
@@ -377,17 +356,18 @@ function cycleTimePref(d, i) {
 
 function absent() {
   if (S.role !== 'admin') return;
-  const mid = +document.getElementById('am').value, date = document.getElementById('ad').value;
-  const gone = orgAs().filter(a => a.mid === mid && a.date === date);
-  S.as = S.as.filter(a => !(a.mid === mid && a.date === date));
-  S.abs.push({ orgId: activeOrgId(), mid, date });
-  const n0 = S.as.length, r = solve(gone.map(({ id, mid, ...x }) => x));
-  S.un = S.un.concat(r.un);
-  const res = S.as.slice(n0);
-  S.msg = `${nm(mid)} marked absent on ${fm(date)}. Re-solved ${gone.length} slot(s) in ${r.ms.toFixed(1)} ms. ` +
-    gone.map(a => { const n = res.find(x => x.s === a.s && x.role === a.role); return `${tm(a)} ${a.role}: ${n ? '→ ' + nm(n.mid) : 'unfilled'}`; }).join('; ');
-  archiveRoster();
-  render();
+  const mid = S.absM || act()[0]?.id, dates = (S.absDays || []).filter(d => !orgAbs().some(a => a.mid === mid && a.date === d));
+  if (!mid || !dates.length) { S.msg = 'Pick a member and at least one new day.'; return render(); }
+  let moved = 0, left = 0;
+  dates.forEach(date => {
+    const gone = orgAs().filter(a => a.mid === mid && a.date === date);
+    S.as = S.as.filter(a => !(a.mid === mid && a.date === date));
+    S.abs.push({ orgId: activeOrgId(), mid, date });
+    const r = solve(gone.map(({ id, mid, ...x }) => x));
+    S.un = S.un.concat(r.un); left += r.un.length; moved += gone.length - r.un.length;
+  });
+  S.msg = `${nm(mid)} marked absent on ${dates.length} day(s). ${moved} shift(s) reassigned, ${left} left unfilled.`;
+  S.absDays = []; archiveRoster(); render();
 }
 
 function bench() {
@@ -521,8 +501,9 @@ function absn(aid) {
 }
 
 function conf(aid) {
-  const a = S.as.find(x => x.id === aid);
-  S.log.push({ id: S.uid2++, orgId: a.orgId, mid: a.mid, aid, h: a.e - a.s, date: a.date, note: '' });
+  const a = S.as.find(x => x.id === aid), ph = document.getElementById('ph_' + aid), pm = document.getElementById('pm_' + aid);
+  const hrsIn = ph ? +(Math.max(0, +ph.value || 0) + Math.min(59, Math.max(0, +pm.value || 0)) / 60).toFixed(4) : a.e - a.s;
+  S.log.push({ id: S.uid2++, orgId: a.orgId, mid: a.mid, aid, h: hrsIn, date: a.date, note: '' });
   render();
 }
 
@@ -727,7 +708,7 @@ function setWeek(v) {
 
 function setTarget(v) { activeOrg().target = Math.max(1, +v || 6); render(); }
 function setDeskCap(v) { activeOrg().deskCap = Math.max(1, +v || 2); render(); }
-function go(p) { S.page = p; S.msg = ''; render(); }
+function go(p) { S.page = p; S.msg = ''; S.enter = true; S.ttFocus = null; S.pop = null; S.popU = null; render(); }
 const uniq = u => { let x = u || 'user', k = 2; while (S.members.some(m => m.nick.toLowerCase() === x) || S.staff.some(t => t.user === x)) x = u + k++; return x; };
 
 function signin() {
@@ -804,10 +785,28 @@ const Q = ['I think I would like to use this system frequently', 'I found the sy
 function sus() { let t = 0; Q.forEach((_, i) => { const v = +document.getElementById('q' + i).value; t += i % 2 === 0 ? v - 1 : 5 - v; }); S.sus = t * 2.5; render(); }
 
 const bar = (v, m) => `<div class="bar"><i style="width:${Math.min(100, (v / (m || 1)) * 100)}%"></i></div>`;
-const dayList = (arr, showWho) => D.map((d, i) => {
-  const x = arr.filter(a => a.day === i).sort((a, b) => a.s - b.s);
-  return x.length ? `<tr><th>${d}<br><span class="mut">${fm(addDays(S.week, i))}</span></th><td>${x.map(a => `<span class="chip ${a.mid ? '' : 'bad'}">${tm(a)} ${a.type === 'event' ? a.role + ' (' + a.ev + ')' : 'Desk'}${showWho && a.mid ? ' · ' + nm(a.mid) : ''}${a.mid ? '' : ' · unfilled'}</span>`).join('')}</td></tr>` : '';
-}).join('');
+const timetable = (arr, showWho) => {
+  if (!arr.length) return '';
+  const HH = 76, t0 = Math.max(5, Math.floor(Math.min(...arr.map(a => a.s)))), t1 = Math.min(22, Math.ceil(Math.max(...arr.map(a => a.e)))), lanes = [];
+  const cols = D.map((d, i) => {
+    const items = arr.filter(a => a.day === i).sort((a, b) => a.s - b.s || a.e - b.e).map(a => ({ a, l: 0, n: 1 }));
+    let grp = [], ends = [], gEnd = 0;
+    const close = () => { grp.forEach(it => it.n = ends.length); grp = []; ends = []; };
+    items.forEach(it => { if (it.a.s >= gEnd) close(); let l = ends.findIndex(e => e <= it.a.s); if (l < 0) l = ends.length; ends[l] = it.a.e; it.l = l; gEnd = Math.max(gEnd, it.a.e); grp.push(it); });
+    close();
+    lanes.push(Math.max(1, ...items.map(it => it.n)));
+    const blocks = items.map(({ a, l, n }, k) => {
+      const what = a.type === 'event' ? a.role + ' (' + a.ev + ')' : 'Desk', who = a.mid ? nm(a.mid) : 'Unfilled', h = (a.e - a.s) * HH - 6, dim = S.ttFocus && a.mid !== S.ttFocus, clk = a.mid && a.id ? `S.pop=${a.id};S.popU=null` : (a.uk >= 0 && canAssign() ? `S.popU=${a.uk};S.pop=null` : '');
+      return `<div class="tt-blk${a.mid ? '' : ' open'}${a.e - a.s < 1 ? ' short' : ''}${dim ? ' dim' : ''}${clk ? ' clk' : ''}${a.manual ? ' man' : ''}" ${clk ? `onclick="${clk};render()"` : ''} style="--c:${cc(a.mid || 1)};--k:${k};--mh:${h}px;top:${(a.s - t0) * HH + 3}px;height:${h}px;left:calc(${l} * 100% / ${n} + 3px);width:calc(100% / ${n} - 6px)" title="${esc(tm(a) + ' - ' + what + ' - ' + who)}"><b>${showWho ? who : what}</b>${showWho ? `<span>${what}</span>` : ''}<small>${tm(a)}</small></div>`;
+    }).join('');
+    return `<div class="tt-col" style="height:${(t1 - t0) * HH}px">${blocks}</div>`;
+  });
+  const gutter = Array.from({ length: t1 - t0 }, (_, k) => `<div class="tt-h" style="height:${HH}px">${hl(t0 + k)}</div>`).join('');
+  const ids = [...new Set(arr.filter(a => a.mid).map(a => a.mid))];
+  const legend = showWho ? ids.map(id => `<button class="lg ${S.ttFocus === id ? 'on' : ''}" onclick="S.ttFocus=S.ttFocus===${id}?null:${id};render()"><i style="background:${cc(id)}"></i>${nm(id)}</button>`).join('') : '';
+  const today = ds(new Date());
+  return `<div class="tt-wrap${ENTER ? ' pop' : ''}"><div class="tt" style="--hh:${HH}px;grid-template-columns:64px ${lanes.map(n => `minmax(${n * 132}px,${n}fr)`).join(' ')}"><div class="tt-corner"></div>${D.map((d, i) => `<div class="tt-day ${addDays(S.week, i) === today ? 'today' : ''}"><small>${d}</small><b>${pd(addDays(S.week, i)).getDate()}</b></div>`).join('')}<div>${gutter}</div>${cols.join('')}</div></div>${legend ? `<div class="tt-legend">${legend}</div>` : ''}`;
+};
 
 function superOrgSelectorHtml() {
   return `<div class="card row" style="justify-content:space-between;background:var(--pri2)">
@@ -817,6 +816,99 @@ function superOrgSelectorHtml() {
     </select></label></div>
   </div>`;
 }
+
+const dayFilter = () => {
+  const today = ds(new Date()), ti = D.findIndex((_, i) => addDays(S.week, i) === today), sel = S.hDay ?? (ti >= 0 ? ti : 'all');
+  const pend = v => orgAs().filter(a => (v === 'all' || a.day === v) && !orgLogs().some(x => x.aid === a.id)).length;
+  const chip = (v, t) => `<button class="pill ${v === sel ? 'on' : ''}" onclick="S.hDay=${typeof v === 'number' ? v : "'all'"};render()">${t}${pend(v) ? `<i class="badge">${pend(v)}</i>` : ''}</button>`;
+  return { ok: a => sel === 'all' || a.day === sel, html: `<div class="row" style="margin:12px 0">${chip('all', 'All days')}${D.map((d, i) => chip(i, d + ' ' + fm(addDays(S.week, i)))).join('')}</div>` };
+};
+function delAbs(mid, date) {
+  const k = mid + '|' + date;
+  if (S.cAbs !== k) { S.cAbs = k; return render(); }
+  S.cAbs = null; S.abs = S.abs.filter(a => !(a.orgId === activeOrgId() && a.mid === mid && a.date === date));
+  S.msg = 'Absence record removed. Shifts that were already reassigned stay as they are; generate the roster again to include this member again.'; render();
+}
+const memberNote = (m, a) => {
+  const n = [];
+  if (!free(m, a.day, a.s, a.e, a.date)) n.push('has class');
+  if (orgAbs().some(x => x.mid === m.id && x.date === a.date)) n.push('absent');
+  if (orgAs().some(x => x !== a && x.mid === m.id && x.date === a.date && x.s < a.e && a.s < x.e)) n.push('has another duty');
+  return n.length ? ' (' + n.join(', ') + ')' : '';
+};
+const popHtml = () => {
+  const a = S.pop ? S.as.find(x => x.id === S.pop) : (S.popU != null ? S.un[S.popU] : null);
+  if (!a) return '';
+  const open = !a.mid && !a.id, mine = a.mid === S.uid && !canAssign(), title = a.type === 'event' ? a.role : 'Desk duty';
+  const assign = canAssign() ? `<div class="card" style="margin:14px 0 0;box-shadow:none"><label>${open ? 'Assign someone' : 'Assign a different member'}</label><div class="row" style="margin-top:6px"><select id="asg" data-search>${act().map(m => `<option value="${m.id}" ${m.id === a.mid ? 'selected' : ''}>${m.name}${memberNote(m, a)}</option>`).join('')}</select><button class="btn" onclick="assignShift()">Assign</button></div><p class="mut" style="margin:8px 0 0">You can pick anyone. Notes show clashes but do not block you.${a.sysMid != null ? `</p><button class="btn sec sm" style="margin-top:8px" onclick="restoreSys()">Restore the system pick${a.sysMid ? ' (' + nm(a.sysMid) + ')' : ' (unfilled)'}</button>` : '</p>'}</div>` : '';
+  return `<div class="scrim" onclick="S.pop=null;S.popU=null;render()"><div class="sheet" onclick="event.stopPropagation()"><span class="chip">${D[a.day]}, ${fm(a.date)}</span>${a.manual ? '<span class="chip warn">Assigned manually</span>' : ''}<h2>${title}</h2><p>${open ? 'Nobody is assigned yet.' : nm(a.mid)}<br>${tm(a)} (${fmtHM(a.e - a.s)})${a.type === 'event' ? '<br>Event: ' + a.ev : ''}</p>${open && a.type === 'event' && canAssign() ? '<p class="mut">Event shifts need a member with no class for the whole event. Mark the day class-free in the Roster Generator, or assign someone here.</p>' : ''}${assign}<div class="row">${mine ? `<button class="btn bad" onclick="S.pop=null;reportConflict(${a.id})">Report a conflict</button>` : ''}<button class="btn sec" onclick="S.pop=null;S.popU=null;render()">Close</button></div></div></div>`;
+};
+function assignShift() {
+  if (!canAssign()) return;
+  const mid = +document.getElementById('asg').value;
+  if (S.pop) { const a = S.as.find(x => x.id === S.pop); if (a && a.mid !== mid) { a.sysMid = a.sysMid ?? a.mid; a.mid = mid; a.manual = true; } }
+  else if (S.popU != null) { const u = S.un[S.popU]; if (u) { S.un.splice(S.popU, 1); S.as.push({ ...u, id: S.uid2++, mid, manual: true, sysMid: 0 }); } }
+  S.msg = `${nm(mid)} assigned manually.`; S.pop = null; S.popU = null; archiveRoster(); render();
+}
+function restoreSys() {
+  const a = S.as.find(x => x.id === S.pop); if (!a || a.sysMid == null) return;
+  if (a.sysMid) { a.mid = a.sysMid; delete a.manual; delete a.sysMid; }
+  else { const { id, mid, manual, sysMid, ...rest } = a; S.as = S.as.filter(x => x !== a); S.un.push(rest); }
+  S.msg = 'System pick restored.'; S.pop = null; archiveRoster(); render();
+}
+function togAbsDay(v) { const d = S.absDays || []; S.absDays = d.includes(v) ? d.filter(x => x !== v) : d.concat(v); render(); }
+function absWeek() { S.absDays = D.map((_, i) => addDays(S.week, i)); render(); }
+function setBrush(b) { S.brush = b; render(); }
+let painting = false;
+const paintCell = td => { const d = +td.dataset.d, i = +td.dataset.i, m = cur(); if (!m || m.grid[d][i]) return; const v = S.brush === 'u' ? -1 : S.brush === 'c' ? 0 : 1; m.prefGrid[d][i] = v; td.className = v === 1 ? 'p' : v === -1 ? 'u' : 'f'; td.textContent = v === 1 ? '★ Pref' : v === -1 ? '✕ Unpref' : ''; };
+const paintAll = (d, i) => { const m = cur(), v = S.brush === 'u' ? -1 : S.brush === 'c' ? 0 : 1; D.forEach((_, dd) => Array.from({ length: NH }, (_, ii) => ii).forEach(ii => { if ((d === null || dd === d) && (i === null || ii === i) && !m.grid[dd][ii]) m.prefGrid[dd][ii] = v; })); render(); };
+document.addEventListener('mousedown', e => { const td = e.target.closest('.grid td[data-d]'); if (!td) return; painting = true; e.preventDefault(); paintCell(td); });
+document.addEventListener('mouseover', e => { if (!painting) return; const td = e.target.closest('.grid td[data-d]'); if (td) paintCell(td); });
+document.addEventListener('mouseup', () => { if (painting) { painting = false; render(); } });
+function enhanceSelects() {
+  const closeAll = () => document.querySelectorAll('.dd.open').forEach(x => x.classList.remove('open'));
+  const place = (b, m) => { const r = b.getBoundingClientRect(); m.style.minWidth = Math.max(r.width, m.querySelector('.dd-q') ? 240 : 120) + 'px'; m.style.left = Math.max(8, Math.min(r.left, innerWidth - 280)) + 'px'; if (r.bottom + 300 > innerHeight && r.top > 300) { m.style.top = 'auto'; m.style.bottom = (innerHeight - r.top + 6) + 'px'; } else { m.style.bottom = 'auto'; m.style.top = (r.bottom + 6) + 'px'; } };
+  const wrap = el => { if (el.dataset.dd) return null; el.dataset.dd = 1; el.classList.add('dd-native'); el.tabIndex = -1; const w = document.createElement('div'), b = document.createElement('button'), m = document.createElement('div'); w.className = 'dd'; b.type = 'button'; b.className = 'dd-btn'; m.className = 'dd-menu'; el.parentNode.insertBefore(w, el); w.append(el, b, m); return { w, b, m }; };
+  const toggle = (e, w, b, m, fill) => { e.preventDefault(); e.stopPropagation(); const was = w.classList.contains('open'); closeAll(); if (was) return; fill(); place(b, m); w.classList.add('open'); m.querySelector('.on')?.scrollIntoView({ block: 'nearest' }); m.querySelector('.dd-q')?.focus(); };
+  document.querySelectorAll('select').forEach(sel => {
+    const o = wrap(sel); if (!o) return; const { w, b, m } = o, srch = sel.hasAttribute('data-search');
+    const sync = () => { b.textContent = sel.options[sel.selectedIndex]?.text || ''; }; sync();
+    const pick = i => { sel.selectedIndex = i; sync(); closeAll(); sel.dispatchEvent(new Event('change', { bubbles: true })); };
+    b.onclick = e => toggle(e, w, b, m, () => {
+      m.innerHTML = ''; let q = null, hi = 0;
+      if (srch) { q = document.createElement('input'); q.className = 'dd-q'; q.placeholder = 'Type a name to search'; q.autocomplete = 'off'; m.append(q); m.onclick = ev => ev.stopPropagation(); }
+      const list = document.createElement('div'); m.append(list);
+      const items = () => [...list.querySelectorAll('.dd-it')];
+      const mark = () => items().forEach((x, k) => { x.classList.toggle('hi', srch && k === hi); if (srch && k === hi) x.scrollIntoView({ block: 'nearest' }); });
+      const draw = () => {
+        const t = q ? q.value.trim().toLowerCase() : '', rank = x => x.op.text.toLowerCase().startsWith(t) ? 0 : 1;
+        const hits = [...sel.options].map((op, i) => ({ op, i })).filter(x => !t || x.op.text.toLowerCase().includes(t)).sort((x, y) => rank(x) - rank(y) || x.i - y.i);
+        list.innerHTML = '';
+        hits.forEach(({ op, i }) => { const it = document.createElement('div'); it.className = 'dd-it' + (i === sel.selectedIndex && !t ? ' on' : ''); it.textContent = op.text; it.dataset.i = i; it.onclick = ev => { ev.stopPropagation(); pick(i); }; list.append(it); });
+        if (!hits.length) list.innerHTML = '<div class="dd-none">No match</div>';
+        hi = t ? 0 : Math.max(0, items().findIndex(x => x.classList.contains('on'))); mark();
+      };
+      draw();
+      if (q) { q.oninput = draw; q.onkeydown = ev => { const n = items().length; if (ev.key === 'ArrowDown') { hi = Math.min(n - 1, hi + 1); mark(); ev.preventDefault(); } else if (ev.key === 'ArrowUp') { hi = Math.max(0, hi - 1); mark(); ev.preventDefault(); } else if (ev.key === 'Enter') { ev.preventDefault(); const it = items()[hi]; if (it) pick(+it.dataset.i); } else if (ev.key === 'Escape') closeAll(); }; }
+    });
+    b.onkeydown = e => {
+      if (e.key === 'Escape') closeAll();
+      else if (srch && e.key.length === 1 && e.key !== ' ' && !e.ctrlKey && !e.metaKey && !e.altKey && !w.classList.contains('open')) { e.preventDefault(); b.click(); const q = m.querySelector('.dd-q'); if (q) { q.value = e.key; q.dispatchEvent(new Event('input')); } }
+    };
+  });
+  document.querySelectorAll('input[type=date]').forEach(inp => {
+    const o = wrap(inp); if (!o) return; const { w, b, m } = o; m.classList.add('cal');
+    const sync = () => { b.textContent = inp.value ? fm(inp.value) + ', ' + inp.value.slice(0, 4) : 'Pick a date'; }; sync();
+    let y, mo;
+    const draw = () => { const first = new Date(y, mo, 1), lead = (first.getDay() + 6) % 7, days = new Date(y, mo + 1, 0).getDate(), today = ds(new Date());
+      m.innerHTML = `<div class="cal-h"><button type="button" data-n="-1">&lsaquo;</button><b>${first.toLocaleString('en', { month: 'long', year: 'numeric' })}</b><button type="button" data-n="1">&rsaquo;</button></div><div class="cal-g">${['M', 'T', 'W', 'T', 'F', 'S', 'S'].map(x => `<i>${x}</i>`).join('')}${'<span></span>'.repeat(lead)}${Array.from({ length: days }, (_, k) => { const v = `${y}-${String(mo + 1).padStart(2, '0')}-${String(k + 1).padStart(2, '0')}`; return `<button type="button" class="${v === inp.value ? 'on' : ''} ${v === today ? 'td' : ''}" data-v="${v}">${k + 1}</button>`; }).join('')}</div>`; };
+    m.onclick = ev => { ev.stopPropagation(); const n = ev.target.closest('[data-n]'), v = ev.target.closest('[data-v]'); if (n) { mo += +n.dataset.n; if (mo < 0) { mo = 11; y--; } if (mo > 11) { mo = 0; y++; } draw(); } else if (v) { inp.value = v.dataset.v; sync(); closeAll(); inp.dispatchEvent(new Event('input', { bubbles: true })); inp.dispatchEvent(new Event('change', { bubbles: true })); } };
+    b.onclick = e => toggle(e, w, b, m, () => { const d0 = inp.value ? new Date(inp.value + 'T00:00:00') : new Date(); y = d0.getFullYear(); mo = d0.getMonth(); draw(); });
+  });
+}
+document.addEventListener('click', () => document.querySelectorAll('.dd.open').forEach(x => x.classList.remove('open')));
+window.addEventListener('scroll', () => document.querySelectorAll('.dd.open').forEach(x => x.classList.remove('open')), true);
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && (S.pop || S.popU != null)) { S.pop = null; S.popU = null; render(); } });
 
 const P = {
   // === STUDENT / PERSONAL DUTY PORTAL ===
@@ -841,7 +933,7 @@ const P = {
       <div class="card"><b>${fmtHM(dfc(m))}</b>Carried deficit</div>
     </div>
     <div class="card"><b>Weekly target progress</b>${bar(v, target)}<p class="mut">Whole-day events or extra shifts can exceed your weekly target and are fully credited to your rendered hours.</p></div>
-    <div class="card"><b>Your assigned duties</b><table>${dayList(orgAs().filter(a => a.mid === m.id)) || ''}</table>${orgAs().some(a => a.mid === m.id) ? '' : '<p class="mut">No duties assigned yet.</p>'}</div>
+    <div class="card"><b>Your assigned duties</b>${timetable(orgAs().filter(a => a.mid === m.id))}${orgAs().some(a => a.mid === m.id) ? '' : '<p class="mut">No duties assigned yet.</p>'}</div>
     <div class="card scroll"><b>Your Minute-Exact Clock-In / Clock-Out Logs</b>
       ${myLogs.length ? `<table style="margin-top:8px"><tr><th>Start Time</th><th>End Time</th><th>Exact Rendered</th></tr>${myLogs.map(l => {
         const mins = l.clockOut ? Math.max(1, Math.round((new Date(l.clockOut) - new Date(l.clockIn)) / 60000)) : null;
@@ -854,24 +946,19 @@ const P = {
     const m = cur(), cl = [...m.classes].sort((a, b) => a.day - b.day || a.s - b.s);
     if (!m.prefGrid) m.prefGrid = D.map(() => Array(NH).fill(0));
     return `<h1>My availability &amp; duty time preferences</h1>
-    <p class="mut">Each row is 30 minutes, 5 AM to 10 PM (6×34 grid). Click any open cell to cycle between <span class="chip">Free</span>, <span class="chip pref">★ Preferred Duty Time</span>, and <span class="chip unpref">✕ Unpreferred Duty Time</span>.</p>
+    <p class="mut">Each row is 30 minutes, 5 AM to 10 PM (6×34 grid). Pick a brush (<span class="chip pref">★ Preferred</span>, <span class="chip unpref">✕ Unpreferred</span> or Clear), then drag across the open cells. Class blocks cannot be painted.</p>
     <div class="card"><b>Add a class</b><div class="row" style="margin-top:8px"><input id="cn" placeholder="Class name (only you see it)"><select id="cd">${D.map((d, i) => `<option value="${i}">${d}</option>`).join('')}</select><label>From ${tsel('id="cs"', 7, 5, 21.5)}</label><label>To ${tsel('id="ce"', 9, 5.5, 22)}</label><button class="btn" onclick="addCls()">Add class</button></div></div>
     <div class="card"><b>My classes</b> <span class="mut">(edit class name, day, or time directly)</span>${cl.length ? cl.map(c => `<div class="row" style="margin:6px 0"><i style="width:14px;height:14px;border-radius:3px;background:${cc(c.id)}"></i><span class="mut">#${c.id}</span><input value="${esc(c.name)}" style="width:140px" onchange="updCls(${c.id},'name',this.value)"><select onchange="updCls(${c.id},'day',this.value)">${D.map((d, i) => `<option value="${i}" ${i === c.day ? 'selected' : ''}>${d}</option>`).join('')}</select>${tsel(`onchange="updCls(${c.id},'s',this.value)"`, c.s, 5, 21.5)}–${tsel(`onchange="updCls(${c.id},'e',this.value)"`, c.e, 5.5, 22)}<button class="btn sec" onclick="delCls(${c.id})">Remove</button></div>`).join('') : '<p class="mut">No classes added.</p>'}</div>
     <div class="card scroll">
-      <div class="row" style="margin-bottom:6px">
-        <span class="chip">Free (Neutral)</span>
-        <span class="chip pref">★ Preferred Time (1st click)</span>
-        <span class="chip unpref">✕ Unpreferred Time (2nd click)</span>
-        <span class="chip" style="background:var(--busy);color:#fff">Class Block</span>
-      </div>
-      <table class="grid"><tr><th></th>${D.map(d => `<th>${d}</th>`).join('')}</tr>
-      ${Array.from({ length: NH }, (_, i) => `<tr><th style="font-weight:${i % 2 ? 400 : 700}">${hl(H0 + i / 2)}</th>${D.map((_, d) => {
+      <div class="row brush card" style="margin:0 0 10px;padding:10px 14px"><b>Paint with:</b>${[['p', '★ Preferred'], ['u', '✕ Unpreferred'], ['c', 'Clear']].map(([k, t]) => `<button class="pill ${(S.brush || 'p') === k ? 'on' : ''}" onclick="setBrush('${k}')">${t}</button>`).join('')}<span class="mut">Drag over cells, click a day name for the whole day, or a time for the whole row.</span><button class="btn sec sm" onclick="if(confirm('Clear every preferred and unpreferred mark?')){S.brush='c';paintAll(null,null);S.brush='p';render()}">Clear all</button><span class="chip" style="background:var(--busy);color:var(--card)">Class block</span></div>
+      <table class="grid"><tr><th></th>${D.map((d, k) => `<th class="clk" title="Paint the whole day" onclick="paintAll(${k},null)">${d}</th>`).join('')}</tr>
+      ${Array.from({ length: NH }, (_, i) => `<tr><th class="clk" title="Paint this time on every day" onclick="paintAll(null,${i})" style="font-weight:${i % 2 ? 400 : 700}">${hl(H0 + i / 2)}</th>${D.map((_, d) => {
         const c = m.grid[d][i], k = c && m.classes.find(x => x.id === c), pVal = !c ? (m.prefGrid[d][i] || 0) : 0;
         const st = c ? `background:${cc(c)};border-color:${cc(c)};color:#fff;font-size:10px` : '';
         const cls = c ? '' : pVal === 1 ? 'p' : pVal === -1 ? 'u' : 'f';
         const lbl = c ? (i === 0 || m.grid[d][i - 1] !== c ? '#' + c : '') : pVal === 1 ? '★ Pref' : pVal === -1 ? '✕ Unpref' : '';
-        const tip = c ? `Class #${c} · ${esc(k.name)}` : pVal === 1 ? 'Preferred duty time (click for Unpreferred)' : pVal === -1 ? 'Unpreferred duty time (click to clear)' : 'Free (click for Preferred)';
-        return `<td class="${cls}" style="${st}" onclick="cycleTimePref(${d},${i})" title="${tip}">${lbl}</td>`;
+        const tip = c ? `Class #${c} · ${esc(k.name)}` : 'Drag to paint with the brush above';
+        return `<td class="${cls}" style="${st}" data-d="${d}" data-i="${i}" title="${tip}">${lbl}</td>`;
       }).join('')}</tr>`).join('')}</table>
     </div>`;
   },
@@ -879,7 +966,7 @@ const P = {
   prefs() {
     const m = cur(), opts = orgRoles();
     return `<h1>Duty work preferences</h1><p class="mut">Rank the duty roles configured by <b>${activeOrg().name}</b> from most wanted (1) to least wanted.</p>
-    ${S.msg ? `<div class="note">${S.msg}</div>` : ''}
+    ${S.msg ? `<div class="note${MSGNEW ? ' new' : ''}">${S.msg}</div>` : ''}
     <div class="card"><b>Rank your preferred work in ${activeOrg().name}</b>
       ${opts.map((_, i) => `<div class="row" style="margin:6px 0">${i + 1}. <select class="pr">${opts.map(o => `<option ${(m.prefs && m.prefs[i] === o) ? 'selected' : ''}>${o}</option>`).join('')}</select></div>`).join('')}
       <button class="btn" style="margin-top:8px" onclick="savePrefs()">Save Preferences</button>
@@ -889,7 +976,7 @@ const P = {
   sched() {
     const m = cur(), mine = orgAs().filter(a => a.mid === m.id);
     return `<h1>My schedule</h1>
-    ${S.msg ? `<div class="note">${S.msg}</div>` : ''}
+    ${S.msg ? `<div class="note${MSGNEW ? ' new' : ''}">${S.msg}</div>` : ''}
     <div class="card"><table><tr><th>Day</th><th>Time</th><th>Duty</th><th>Action</th></tr>
       ${mine.map(a => `<tr><td>${D[a.day]}, ${fm(a.date)}</td><td>${tm(a)}</td><td>${a.type === 'event' ? a.role + ' – ' + a.ev : 'Desk shift'}</td><td><button class="btn bad sm" onclick="reportConflict(${a.id})">Report Conflict</button></td></tr>`).join('')}
     </table>${mine.length ? '' : '<p class="mut">Nothing assigned yet.</p>'}</div>`;
@@ -899,7 +986,7 @@ const P = {
     const isPersonal = S.role === 'member' || S.role === 'officer';
     const m = isPersonal ? cur() : null, a = acct();
     const org = activeOrg();
-    return `<h1>My profile</h1>${S.msg ? `<div class="note">${S.msg}</div>` : ''}<div class="card"><b>Account</b><table style="margin-top:8px"><tr><th>Name</th><td>${a.name}</td></tr><tr><th>Role</th><td>${S.role.toUpperCase()}</td></tr>${S.orgId ? `<tr><th>Organization</th><td>${orgName(S.orgId)} (Prefix: <code>${org.handle}_</code>)</td></tr>` : ''}<tr><th>Login Username</th><td>${m ? `<code>${org.handle}_</code><input id="pu" value="${esc(m.nick.replace(org.handle + '_', ''))}" style="width:130px"> <button class="btn sec" onclick="saveNick()">Save username</button>` : a.user}</td></tr></table></div>
+    return `<h1>My profile</h1>${S.msg ? `<div class="note${MSGNEW ? ' new' : ''}">${S.msg}</div>` : ''}<div class="card"><b>Account</b><table style="margin-top:8px"><tr><th>Name</th><td>${a.name}</td></tr><tr><th>Role</th><td>${S.role.toUpperCase()}</td></tr>${S.orgId ? `<tr><th>Organization</th><td>${orgName(S.orgId)} (Prefix: <code>${org.handle}_</code>)</td></tr>` : ''}<tr><th>Login Username</th><td>${m ? `<code>${org.handle}_</code><input id="pu" value="${esc(m.nick.replace(org.handle + '_', ''))}" style="width:130px"> <button class="btn sec" onclick="saveNick()">Save username</button>` : a.user}</td></tr></table></div>
     <div class="card"><b>Change password</b><div class="row" style="margin:8px 0"><input id="p0" type="password" placeholder="Current password"><input id="p1" type="password" placeholder="New password"><input id="p2" type="password" placeholder="Confirm new password"><button class="btn" onclick="chPw()">Update password</button></div></div>`;
   },
 
@@ -923,7 +1010,7 @@ const P = {
 
   oroster() {
     return `<h1>${activeOrg().name} — Roster (Read-Only)</h1><p class="mut">Week of ${fm(S.week)} – ${fm(addDays(S.week, 5))} ${activeOrg().eventWeek ? '<span class="chip warn">Event Week Mode</span>' : ''}</p>
-    <div class="card scroll"><table>${dayList([...orgAs(), ...orgUn().map(u => ({ ...u, mid: 0 }))], true)}</table>${orgAs().length + orgUn().length ? '' : '<p class="mut">No roster generated yet.</p>'}</div>
+    <div class="stage">${timetable([...orgAs(), ...orgUn().map(u => ({ ...u, mid: 0, uk: S.un.indexOf(u) }))], true)}${orgAs().length + orgUn().length ? '' : '<div class="empty">No roster has been generated for this week yet.</div>'}</div>
     <h2>Hours by member</h2><div class="card">${act().map(m => `<div class="row"><span style="width:90px">${m.name}</span><div style="flex:1">${bar(hrs(m.id), getTargetHours(m))}</div>${fmtHM(hrs(m.id, 'desk'))} desk · ${fmtHM(hrs(m.id, 'event'))} events (Target: ${getTargetHours(m)}h)</div>`).join('')}</div>`;
   },
 
@@ -933,8 +1020,8 @@ const P = {
   },
 
   ohours() {
-    const as = [...orgAs()].sort((a, b) => a.date.localeCompare(b.date) || a.s - b.s);
-    return `<h1>${activeOrg().name} — Duty Hours (Read-Only)</h1><div class="card scroll"><table><tr><th>Member</th><th>Date</th><th>Time</th><th>Duty</th><th>Status</th></tr>${as.map(a => { const l = orgLogs().find(x => x.aid === a.id); return `<tr><td>${nm(a.mid)}</td><td>${D[a.day]}, ${fm(a.date)}</td><td>${tm(a)}</td><td>${a.type === 'event' ? a.role + ' – ' + a.ev : 'Desk'}</td><td>${l ? (l.absent ? '<span class="chip bad">Absent</span>' : `<span class="chip">${fmtHM(l.h)} recorded</span>`) : '<span class="chip warn">Pending</span>'}</td></tr>`; }).join('')}</table></div>`;
+    const df = dayFilter(), as = [...orgAs()].filter(df.ok).sort((a, b) => a.date.localeCompare(b.date) || a.s - b.s);
+    return `<h1>${activeOrg().name} — Duty Hours (Read-Only)</h1>${df.html}<div class="card scroll"><table><tr><th>Member</th><th>Date</th><th>Time</th><th>Duty</th><th>Status</th></tr>${as.map(a => { const l = orgLogs().find(x => x.aid === a.id); return `<tr><td>${nm(a.mid)}</td><td>${D[a.day]}, ${fm(a.date)}</td><td>${tm(a)}</td><td>${a.type === 'event' ? a.role + ' – ' + a.ev : 'Desk'}</td><td>${l ? (l.absent ? '<span class="chip bad">Absent</span>' : `<span class="chip">${fmtHM(l.h)} recorded</span>`) : '<span class="chip warn">Pending</span>'}</td></tr>`; }).join('')}</table></div>`;
   },
 
   omembers() {
@@ -950,7 +1037,7 @@ const P = {
     const admins = S.staff.filter(s => s.role === 'admin');
     const org = activeOrg();
     return `<h1>University Super Admin Control</h1><p class="mut">Create isolated Organization Admin accounts and monitor each organization's schedule and assigned events. Super Admins cannot generate or alter organization rosters.</p>
-    ${S.msg ? `<div class="note">${S.msg}</div>` : ''}
+    ${S.msg ? `<div class="note${MSGNEW ? ' new' : ''}">${S.msg}</div>` : ''}
     ${superOrgSelectorHtml()}
     <div class="stats">
       <div class="card"><b>${S.orgs.length}</b>Registered Orgs</div>
@@ -959,7 +1046,7 @@ const P = {
       <div class="card"><b>${orgEvents().length}</b>${org.name} Events</div>
     </div>
     <div class="card"><b>${org.name} — Current Weekly Schedule (Read-Only)</b>
-      <table style="margin-top:8px">${dayList([...orgAs(), ...orgUn().map(u => ({ ...u, mid: 0 }))], true)}</table>
+      ${timetable([...orgAs(), ...orgUn().map(u => ({ ...u, mid: 0, uk: S.un.indexOf(u) }))], true)}
       ${orgAs().length + orgUn().length ? '' : '<p class="mut">No roster generated by this organization yet.</p>'}
     </div>
     <div class="card"><b>${org.name} — Events &amp; Assigned Crews (Read-Only)</b>
@@ -998,7 +1085,7 @@ const P = {
     return `<h1>Organization Schedule Monitor (Read-Only)</h1>
     ${superOrgSelectorHtml()}
     <div class="card row"><label>Inspect Week of <input type="date" value="${S.week}" onchange="setWeek(this.value)"></label><span class="mut">Monitoring <b>${org.name}</b></span></div>
-    <div class="card scroll"><table>${dayList([...orgAs(), ...orgUn().map(u => ({ ...u, mid: 0 }))], true)}</table>${orgAs().length + orgUn().length ? '' : '<p class="mut">No shifts scheduled for this organization.</p>'}</div>`;
+    <div class="stage">${timetable([...orgAs(), ...orgUn().map(u => ({ ...u, mid: 0, uk: S.un.indexOf(u) }))], true)}${orgAs().length + orgUn().length ? '' : '<div class="empty">No shifts scheduled for this organization yet.</div>'}</div>`;
   },
 
   super_events() {
@@ -1020,7 +1107,7 @@ const P = {
     const org = activeOrg();
     const rolesList = orgRoles();
     return `<h1>${org.name} — Admin Dashboard</h1>
-    ${S.msg ? `<div class="note">${S.msg}</div>` : ''}
+    ${S.msg ? `<div class="note${MSGNEW ? ' new' : ''}">${S.msg}</div>` : ''}
     <div class="card row" style="justify-content:space-between">
       <div><b>Academic / Event Week Mode:</b> ${org.eventWeek ? '<span class="chip warn">Event Week Active (Classes Ignored)</span>' : '<span class="chip">Normal Class Week</span>'}</div>
       <button class="btn ${org.eventWeek ? 'warn' : 'sec'}" onclick="toggleEventWeek()">${org.eventWeek ? 'Switch to Normal Week' : 'Set Event Week (No Class)'}</button>
@@ -1047,21 +1134,21 @@ const P = {
 
   roster() {
     const org = activeOrg();
-    return `<h1>${org.name} — Roster Generator</h1>
-    <div class="card row">
+    return `<h1>Roster Generator</h1><p class="mut">${org.name}. Set the options, press Generate, then click any shift for details.</p>
+    <div class="card row sticky">
       <label>Week of <input type="date" value="${S.week}" onchange="setWeek(this.value)"></label>
       <label>Default Member Target <input type="number" min="2" max="40" value="${org.target || 6}" style="width:65px" onchange="setTarget(this.value)"></label>
       <label>Desk Quota/Slot <input type="number" min="1" max="10" value="${org.deskCap || 2}" style="width:60px" onchange="setDeskCap(this.value)"></label>
-      <button class="btn" id="generate-roster" onclick="gen()">Generate Roster</button>
+      <button class="btn go" id="generate-roster" onclick="gen()">Generate Roster</button>
     </div>
-    <div class="card"><b>Mark Specific Class-Free Event Days (Mon–Sat)</b><div class="row" style="margin-top:6px">
+    <div class="card"><b>Class-free event days</b> <span class="mut">(tap a day to toggle)</span><div class="row" style="margin-top:6px">
       ${D.map((d, i) => {
         const dt = addDays(S.week, i), active = isNoClassDate(dt);
         return `<button class="btn sm ${active ? 'warn' : 'sec'}" onclick="toggleEventDay('${dt}')">${d} ${fm(dt)} ${active ? '(No Class)' : ''}</button>`;
       }).join('')}
     </div></div>
-    ${S.msg ? `<div class="note">${S.msg}</div>` : ''}
-    <div class="card scroll"><table>${dayList([...orgAs(), ...orgUn().map(u => ({ ...u, mid: 0 }))], true)}</table>${orgAs().length + orgUn().length ? '' : '<p class="mut">No roster generated yet.</p>'}</div>
+    ${S.msg ? `<div class="note${MSGNEW ? ' new' : ''}">${S.msg}</div>` : ''}
+    <div class="stage">${timetable([...orgAs(), ...orgUn().map(u => ({ ...u, mid: 0, uk: S.un.indexOf(u) }))], true)}${orgAs().length + orgUn().length ? '' : '<div class="empty">No roster yet. Pick a week above, then press <b>Generate Roster</b>.</div>'}</div>
     <h2>Hours by member (Target vs. Assigned)</h2><div class="card">${act().map(m => {
       const assigned = hrs(m.id), target = getTargetHours(m);
       return `<div class="row"><span style="width:90px">${m.name}</span><div style="flex:1">${bar(assigned, target)}</div>${fmtHM(hrs(m.id, 'desk'))} desk · ${fmtHM(hrs(m.id, 'event'))} events (Target: ${target}h${assigned > target ? ` · <span class="chip">+${fmtHM(assigned - target)} over</span>` : ''})</div>`;
@@ -1087,38 +1174,10 @@ const P = {
     </table></div>`;
   },
 
-  tt() {
-    const d = S.ttDay ?? Math.min(dow(ds(new Date())), 5), M = act();
-    const info = (m, i) => {
-      const h = H0 + i / 2, a = orgAs().find(x => x.mid === m.id && x.day === d && x.s <= h && h < x.e);
-      if (a) return { k: 'a' + a.id, l: a.type === 'event' ? a.role : 'Desk', t: (a.type === 'event' ? a.role + ' (' + a.ev + ') ' : 'Desk ') + tm(a), s: a.type === 'event' ? '#4f46e5' : 'var(--pri)', c: '#fff' };
-      const c = m.grid[d][i];
-      if (c) return { k: 'c' + c, l: 'Class', t: 'In class', s: 'var(--busy)', c: 'var(--bg)' };
-      const pVal = m.prefGrid ? (m.prefGrid[d][i] || 0) : 0;
-      if (pVal === 1) return { k: 'p', l: '★', t: 'Preferred free slot', s: 'var(--pref2)', c: 'var(--pref)' };
-      if (pVal === -1) return { k: 'u', l: '✕', t: 'Unpreferred slot', s: 'var(--unpref2)', c: 'var(--unpref)' };
-      return { k: 'f', l: '', t: 'Free', s: '', c: '' };
-    };
-    return `<h1>${activeOrg().name} — Member Timetable</h1>
-    <div class="row">${D.map((n, i) => `<button class="btn ${i === d ? '' : 'sec'}" onclick="S.ttDay=${i};render()">${n} ${fm(addDays(S.week, i))}</button>`).join('')}</div>
-    <p class="mut" style="margin-top:8px"><span class="chip" style="background:var(--pri);color:#fff">Desk duty</span><span class="chip" style="background:#4f46e5;color:#fff">Event duty</span><span class="chip pref">★ Preferred</span><span class="chip unpref">✕ Unpreferred</span><span class="chip" style="background:var(--busy);color:var(--bg)">In class</span></p>
-    <div class="card scroll"><table class="grid"><tr><th></th>${M.map(m => `<th>${m.name}</th>`).join('')}<th>On duty</th></tr>
-      ${Array.from({ length: NH }, (_, i) => {
-        let n = 0;
-        const cells = M.map(m => {
-          const x = info(m, i), p = i ? info(m, i - 1) : {}, st = x.s ? `background:${x.s};border-color:${x.s};color:${x.c};font-size:10px` : '';
-          if (x.k[0] === 'a') n++;
-          return `<td class="${x.s ? '' : 'f'}" style="${st}" title="${esc(x.t)}">${x.k !== p.k ? x.l : ''}</td>`;
-        }).join('');
-        return `<tr><th style="font-weight:${i % 2 ? 400 : 700}">${hl(H0 + i / 2)}</th>${cells}<td><b>${n || ''}</b></td></tr>`;
-      }).join('')}
-    </table></div>`;
-  },
-
   events() {
     const ev = [...orgEvents()].sort((a, b) => a.date.localeCompare(b.date) || a.s - b.s);
     return `<h1>${activeOrg().name} — Events &amp; Editable Roles</h1><p class="mut">Add, rename, adjust crew counts, or remove roles directly inside each event.</p>
-    ${S.msg ? `<div class="note">${S.msg}</div>` : ''}
+    ${S.msg ? `<div class="note${MSGNEW ? ' new' : ''}">${S.msg}</div>` : ''}
     ${ev.map(e => {
       const w = dow(e.date);
       const roleEntries = Object.entries(e.roles || {}).filter(([_, cnt]) => cnt > 0);
@@ -1151,10 +1210,10 @@ const P = {
 
   hours() {
     const ex = orgLogs().filter(l => l.extra).sort((a, b) => a.date.localeCompare(b.date));
-    const as = [...orgAs()].sort((a, b) => a.date.localeCompare(b.date) || a.s - b.s);
+    const df = dayFilter(), as = [...orgAs()].filter(df.ok).sort((a, b) => a.date.localeCompare(b.date) || a.s - b.s);
     const mo = sel => orgMembers().map(m => `<option value="${m.id}" ${m.id === sel ? 'selected' : ''}>${m.name}</option>`).join('');
     return `<h1>${activeOrg().name} — Duty Hours &amp; Absences</h1>
-    <h2>Scheduled Duties</h2><div class="card scroll"><table><tr><th>Member</th><th>Date</th><th>Time</th><th>Duty</th><th>Rendered (Hrs &amp; Mins)</th><th>Note</th><th>Actions</th></tr>
+    ${df.html}<h2>Scheduled Duties</h2><div class="card scroll"><table><tr><th>Member</th><th>Date</th><th>Time</th><th>Duty</th><th>Rendered (Hrs &amp; Mins)</th><th>Note</th><th>Actions</th></tr>
       ${as.map(a => {
         const l = orgLogs().find(x => x.aid === a.id);
         const hPart = l ? Math.floor(l.h) : 0;
@@ -1162,10 +1221,10 @@ const P = {
         return `<tr><td>${nm(a.mid)}</td><td>${D[a.day]}, ${fm(a.date)}</td><td>${tm(a)}</td><td>${a.type === 'event' ? a.role + ' – ' + a.ev : 'Desk'}</td>
         ${l ? (l.absent ? `<td><span class="chip bad">Absent (-${fmtHM(l.miss)})</span></td>` : `<td><input id="lh_${l.id}" type="number" min="0" max="24" value="${hPart}" style="width:52px" onchange="updLHM(${l.id})">h <input id="lm_${l.id}" type="number" min="0" max="59" value="${mPart}" style="width:52px" onchange="updLHM(${l.id})">m</td>`) +
           `<td><input value="${esc(l.note)}" onchange="updL(${l.id},'note',this.value)"></td><td><button class="btn sec sm" onclick="unconf(${l.id})">Undo</button></td>`
-          : `<td>${fmtHM(a.e - a.s)} scheduled</td><td></td><td class="row"><button class="btn sm" onclick="conf(${a.id})">Confirm</button><button class="btn bad sm" onclick="absn(${a.id})">Absent</button></td>`}</tr>`;
+          : `<td><input id="ph_${a.id}" type="number" min="0" max="24" value="${Math.floor(a.e - a.s)}" style="width:52px">h <input id="pm_${a.id}" type="number" min="0" max="59" value="${Math.round(((a.e - a.s) % 1) * 60)}" style="width:52px">m</td><td></td><td class="row"><button class="btn sm" onclick="conf(${a.id})">Mark attended</button><button class="btn bad sm" onclick="absn(${a.id})">Absent</button></td>`}</tr>`;
       }).join('')}
-    </table>${as.length ? '' : '<p class="mut">Generate a roster first.</p>'}</div>
-    <h2>Extra Duty Outside Schedule</h2><div class="card"><div class="row"><select id="xm">${mo(0)}</select><input id="xd" type="date" value="${S.week}"><label><input id="xh" type="number" min="0" value="1" style="width:52px">h <input id="xm_min" type="number" min="0" max="59" value="0" style="width:52px">m</label><input id="xn" placeholder="Reason"><button class="btn" onclick="addX()">Add Extra Duty</button></div></div>
+    </table>${as.length ? '' : '<div class="empty">No duties for this selection. Pick another day or generate a roster.</div>'}</div>
+    <h2>Extra Duty Outside Schedule</h2><div class="card"><div class="row"><select id="xm" data-search>${mo(0)}</select><input id="xd" type="date" value="${S.week}"><label><input id="xh" type="number" min="0" value="1" style="width:52px">h <input id="xm_min" type="number" min="0" max="59" value="0" style="width:52px">m</label><input id="xn" placeholder="Reason"><button class="btn" onclick="addX()">Add Extra Duty</button></div></div>
     <div class="card scroll">${ex.length ? `<table><tr><th>Member</th><th>Date</th><th>Exact Rendered</th><th>Reason</th><th></th></tr>${ex.map(l => `<tr><td>${nm(l.mid)}</td><td>${fm(l.date)}</td><td><b>${fmtHM(l.h)}</b></td><td>${esc(l.note)}</td><td><button class="btn bad sm" onclick="delL(${l.id})">Remove</button></td></tr>`).join('')}</table>` : '<p class="mut">No extra duty recorded.</p>'}</div>`;
   },
 
@@ -1182,7 +1241,7 @@ const P = {
       <td><select onchange="updM(${m.id},'status',this.value)">${stl.map(x => `<option value="${x[0]}" ${x[0] === st ? 'selected' : ''}>${x[1]}</option>`).join('')}</select>${st === 'grad' ? `<br><span class="chip warn">auto-removal ${fm(addDays(m.gradOn || ds(new Date()), 7))}</span>` : ''}</td>
       <td><button class="btn sec sm" onclick="resetPw(${m.id})">Reset PW</button> <button class="btn bad sm" onclick="delM(${m.id})">${S.cm === m.id ? 'Confirm' : 'Remove'}</button></td></tr>`).join('')}</table>` : '<p class="mut">No members in this category.</p>'}</div>`;
     };
-    return `<h1>${org.name} — Members &amp; Permissions</h1>${S.msg ? `<div class="note">${S.msg}</div>` : ''}
+    return `<h1>${org.name} — Members &amp; Permissions</h1>${S.msg ? `<div class="note${MSGNEW ? ' new' : ''}">${S.msg}</div>` : ''}
     <div class="card"><b>Add Member / Officer to ${org.name}</b><div class="row" style="margin-top:8px"><input id="mn" placeholder="Member first name (e.g. Arden)"><select id="mrole"><option value="member">Regular Member</option><option value="officer">Officer</option></select><select id="mpos"><option value="">No Officer Title</option>${orgPositions().map(p => `<option value="${p.id}">${p.title} (${p.targetHrs}h/wk)</option>`).join('')}</select><button class="btn" onclick="addM()">Add</button></div><p class="mut" style="margin-top:6px">Login username will be created automatically as <code>${org.handle}_name</code> (e.g. <code>${org.handle}_arden</code>).</p></div>
     ${sec('active', 'Active Members', 'Included in automated roster generation strictly for this organization.')}
     ${sec('loa', 'Leave of Absence (LOA)', 'Excluded from schedule generation while on leave.')}
@@ -1190,7 +1249,14 @@ const P = {
   },
 
   absence() {
-    return `<h1>${activeOrg().name} — Absence Re-Solver</h1><div class="card"><p class="mut">Marks a member absent on a date and surgically re-assigns only their shifts within ${activeOrg().name}.</p><div class="row"><select id="am">${act().map(m => `<option value="${m.id}">${m.name}</option>`).join('')}</select><select id="ad">${D.map((d, i) => `<option value="${addDays(S.week, i)}">${d} ${fm(addDays(S.week, i))}</option>`).join('')}</select><button class="btn" onclick="absent()">Mark Absent &amp; Re-Solve</button></div></div>${S.msg ? `<div class="note">${S.msg}</div>` : ''}${orgAbs().length ? `<div class="card"><b>Recorded Absences</b><br>${orgAbs().map(a => `<span class="chip warn">${nm(a.mid)} · ${fm(a.date)}</span>`).join('')}</div>` : ''}`;
+    const sel = S.absM || act()[0]?.id, days = S.absDays || [], list = orgAbs(), by = {}, tot = {};
+    list.forEach(a => { (by[a.date] ||= []).push(a); tot[a.mid] = (tot[a.mid] || 0) + 1; });
+    const chip = a => { const k = a.mid + '|' + a.date; return S.cAbs === k ? `<span class="chip bad">Remove ${nm(a.mid)}? <button class="x" onclick="delAbs(${a.mid},'${a.date}')">Yes</button><button class="x" onclick="S.cAbs=null;render()">Keep</button></span>` : `<span class="chip warn">${nm(a.mid)}<button class="x" title="Remove record" onclick="delAbs(${a.mid},'${a.date}')">&times;</button></span>`; };
+    return `<h1>${activeOrg().name} — Absence Re-Solver</h1><div class="card"><p class="mut">Pick a member, then tap every day they were absent. Only their shifts are re-assigned.</p>
+    <div class="row"><select id="am" data-search onchange="S.absM=+this.value">${act().map(m => `<option value="${m.id}" ${m.id === sel ? 'selected' : ''}>${m.name}</option>`).join('')}</select></div>
+    <div class="row" style="margin:12px 0">${D.map((d, i) => { const v = addDays(S.week, i), done = list.some(a => a.mid === sel && a.date === v); return `<button class="pill ${days.includes(v) ? 'on' : ''}" ${done ? 'disabled title="Already recorded"' : ''} onclick="togAbsDay('${v}')">${d} ${fm(v)}</button>`; }).join('')}<button class="pill" onclick="absWeek()">Whole week</button><button class="pill" onclick="S.absDays=[];render()">Clear</button></div>
+    <button class="btn bad" onclick="absent()">Mark absent${days.length ? ' on ' + days.length + ' day(s)' : ''} &amp; re-solve</button></div>
+    ${S.msg ? `<div class="note${MSGNEW ? ' new' : ''}">${S.msg}</div>` : ''}${list.length ? `<div class="card"><b>Recorded absences (${list.length})</b><p class="mut">Grouped by day. Totals: ${Object.keys(tot).map(id => nm(+id) + ' ' + tot[id]).join(', ')}. Remove a record if it was added by mistake.</p>${Object.keys(by).sort().map(dt => `<div class="day-row"><div class="day-lbl"><b>${D[dow(dt)] || ''}</b><span>${fm(dt)}</span></div><div>${by[dt].map(chip).join('')}</div></div>`).join('')}</div>` : ''}`;
   }
 };
 
@@ -1208,7 +1274,6 @@ const NAV = {
     { sec: 'Organization Oversight' },
     ['ohome', 'Org Dashboard'],
     ['oroster', 'View Roster'],
-    ['tt', 'Member Timetable'],
     ['oevents', 'View Events'],
     ['ohours', 'View Duty Hours'],
     ['omembers', 'Members List'],
@@ -1223,7 +1288,6 @@ const NAV = {
     ['ahome', 'Dashboard & Preferences'],
     ['roster', 'Roster Generator'],
     ['history', 'Saved Rosters'],
-    ['tt', 'Timetable'],
     ['events', 'Events & Roles'],
     ['hours', 'Duty Hours'],
     ['members', 'Members & Roles'],
@@ -1243,28 +1307,29 @@ const NAV = {
 function render() {
   const r = document.getElementById('root');
   if (!S || !S.orgs) return;
+  const enter = S.enter; S.enter = false; ENTER = enter; MSGNEW = S.msg !== LASTMSG; LASTMSG = S.msg;
 
   if (!S.role) {
-    r.innerHTML = `<div class="card login"><h1>ShiftSync</h1><p class="mut">Sign in with your username and password.</p>${S.err ? `<div class="note" style="background:var(--bad2);color:var(--bad)">${S.err}</div>` : ''}
-    <label>Username<br><input id="lu" value="${esc(S.lu || '')}" style="width:100%" autocomplete="username"></label><br><br>
-    <label>Password<br><input id="lp" type="password" style="width:100%" onkeydown="if(event.key=='Enter')signin()" autocomplete="current-password"></label><br><br>
-    <button class="btn" onclick="signin()">Sign in</button>
-    <div class="note"><b>Demo Accounts (Password: <code>${DEFPW}</code>)</b><br>
-    Super Admin (Monitor &amp; Org Creation): <code>superadmin</code><br>
-    USG Admin: <code>usg_admin</code> · CSS Admin: <code>css_admin</code><br>
-    USG Officer: <code>usg_arden</code> · CSS Officer: <code>css_gio</code><br>
-    USG Member: <code>usg_bea</code> · CSS Member: <code>css_hana</code></div></div>`;
+    r.innerHTML = `<div class="auth"><aside class="auth-art"><div><div class="brand">ShiftSync</div><p>Duty rosters that fit around your classes.</p></div><div class="art-tt"><i></i><i></i><i></i><i></i><i></i><i></i></div></aside>
+    <form class="auth-form" onsubmit="signin();return false">${themeSeg()}<h1>Sign in</h1>
+    ${S.err ? `<div class="note bad">${S.err}</div>` : ''}
+    <label>Username<input id="lu" value="${esc(S.lu || '')}" autocomplete="username" autofocus></label>
+    <label>Password<input id="lp" type="password" autocomplete="current-password"></label>
+    <button class="btn" type="submit">Sign in</button>
+    <details class="demo"><summary>Demo accounts</summary><p>Password for all: <code>${DEFPW}</code></p>
+    <p>Super admin: <code>superadmin</code><br>Admins: <code>usg_admin</code>, <code>css_admin</code><br>Officers: <code>usg_arden</code>, <code>css_gio</code><br>Members: <code>usg_bea</code>, <code>css_hana</code></p></details></form></div>`;
     persistState();
     return;
   }
 
   const navItems = NAV[S.role] || NAV.member;
+  const allowed = navItems.filter(n => !n.sec).map(n => n[0]); if (!allowed.includes(S.page)) S.page = allowed[0];
   const badgeText = S.role === 'superadmin' ? 'University Super Admin' : `${activeOrg().name} (${activeOrg().handle}_*)`;
-  r.innerHTML = `<div class="app"><nav><div class="logo">ShiftSync</div>
-    <div class="org-badge">${badgeText}</div>
-    ${navItems.map(n => n.sec ? `<div class="sec-lbl">${n.sec}</div>` : `<button class="${S.page === n[0] ? 'on' : ''}" onclick="go('${n[0]}')">${n[1]}</button>`).join('')}
-    <div class="who">${acct().name} · ${S.role.toUpperCase()}<br><a href="#" onclick="S.role=null;S.err='';S.lu='';render();return false" style="color:var(--pri)">Sign out</a></div>
-  </nav><main>${(P[S.page] || P.home)()}</main></div>`;
+  r.innerHTML = `<header class="top"><div class="top-row"><div class="logo">ShiftSync</div><span class="org-badge">${badgeText}</span>
+    <div class="who">${themeSeg()}<span class="av">${acct().name.charAt(0)}</span><div><b>${acct().name}</b><small>${S.role}</small></div><a href="#" onclick="S.role=null;S.err='';S.lu='';render();return false">Sign out</a></div></div>
+    <nav class="tabs">${navItems.map(n => n.sec ? `<span class="sec-lbl">${n.sec}</span>` : `<button class="${S.page === n[0] ? 'on' : ''}" onclick="go('${n[0]}')">${n[1]}</button>`).join('')}</nav></header>
+    <main class="${enter ? 'enter' : ''}">${(P[S.page] || P.home)()}</main>${popHtml()}`;
+  enhanceSelects();
   persistState();
 }
 
